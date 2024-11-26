@@ -12,11 +12,24 @@ const UserAuth = () => {
 
   const handleLogin = async () => {
     try {
+      // Call the backend login function with user credentials
       const { data } = await login({ email, password });
-      contextLogin(data); // Update user data in context
-      navigate('/dashboard'); // Redirect to the dashboard page
+
+      // Destructure the response to extract role (IsAdmin) and other details
+      const { IsAdmin, message } = data.IsAdmin;
+
+      // Show an appropriate message based on the user role
+      alert(message || (data.IsAdmin ? 'Welcome Admin' : 'Welcome User'));
+
+      // Store the user data in context (global state)
+      contextLogin(data.IsAdmin);
+
+      // Redirect to the dashboard page
+      navigate('/dashboard');
     } catch (err) {
-      alert('Login failed.');
+      // Show an error message if the login fails
+      console.error('Login failed:', err);
+      alert('Login failed. Please check your email or password.');
     }
   };
 
