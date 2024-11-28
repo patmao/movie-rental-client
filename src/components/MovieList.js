@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchMovies, deleteMovie } from '../api/api';
 
-const MovieList = () => {
+const MovieList = ({ showAdminActions }) => {
   const [movies, setMovies] = useState([]);
 
   // Fetch movies when component mounts
@@ -18,8 +18,8 @@ const MovieList = () => {
   // Handle movie deletion
   const handleDelete = async (id) => {
     try {
-      await deleteMovie(id);  // Call the deleteMovie API function
-      setMovies((prevMovies) => prevMovies.filter((movie) => movie.id !== id));  // Remove the deleted movie from the list
+      await deleteMovie(id); // Call the deleteMovie API function
+      setMovies((prevMovies) => prevMovies.filter((movie) => movie.id !== id)); // Remove the deleted movie from the list
     } catch (err) {
       console.error('Failed to delete movie', err);
     }
@@ -34,10 +34,14 @@ const MovieList = () => {
             <Link to={`/movie/${movie.id}`}>
               {movie.movieName} - ${movie.rentalPrice}
             </Link>
-            {' | '}
-            <Link to={`/update-movie/${movie.id}`}>Update</Link>
-            {' | '}
-            <button onClick={() => handleDelete(movie.id)}>Delete</button> {/* Add delete button */}
+            {showAdminActions && (
+              <>
+                {' | '}
+                <Link to={`/update-movie/${movie.id}`}>Update</Link>
+                {' | '}
+                <button onClick={() => handleDelete(movie.id)}>Delete</button>
+              </>
+            )}
           </li>
         ))}
       </ul>

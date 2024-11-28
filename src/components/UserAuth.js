@@ -14,20 +14,31 @@ const UserAuth = () => {
     try {
       // Call the backend login function with user credentials
       const { data } = await login({ email, password });
-      console.log(data);
-
-      // Show an appropriate message based on the user role
-      alert(data.isAdmin ? "Welcome Admin" : "Welcome User");
-
-      // Store the user data in context (global state)
-      contextLogin(data);
-
-      // Redirect to the dashboard page
-      navigate("/dashboard");
+  
+      // Log the full response for debugging
+      console.log('Raw Response from DynamoDB:', data);
+  
+      // Normalize fields to extract actual values
+      const isAdmin = data.IsAdmin.bool; // Extract the boolean value for IsAdmin
+      const userEmail = data.Email.S; // If it's stored as a string
+      const userRentals = data.Rentals.L; // If it's stored as a list
+  
+      // Check if the user is an admin and display the appropriate message
+      if (isAdmin) {
+        alert('Welcome Admin');
+        navigate('/admin-dashboard');
+      } else {
+        alert('Welcome User');
+        navigate('/user-dashboard');
+      }
+  
+      // Pass the normalized data to the context for global use
+      contextLogin({ email: userEmail, isAdmin, rentals: userRentals });
+  
+ 
     } catch (err) {
-      // Show an error message if the login fails
-      console.error("Login failed:", err);
-      alert("Login failed. Please check your email or password.");
+      console.error('Login failed:', err);
+      alert('Login failed. Please check your email or password.');
     }
   };
 

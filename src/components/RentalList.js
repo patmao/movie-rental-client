@@ -1,29 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { fetchRentals } from '../api/api';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { getRentals } from "../api/api";
 
-const RentalList = () => {
+function RentalList() {
   const [rentals, setRentals] = useState([]);
 
   useEffect(() => {
-    const loadRentals = async () => {
-      const { data } = await fetchRentals();
+    const fetchRentals = async () => {
+      const data = await getRentals();
       setRentals(data);
     };
-    loadRentals();
+    fetchRentals();
   }, []);
 
   return (
     <div>
-      <h2>My Rentals</h2>
+      <h1>Rentals</h1>
+      <Link to="/rentals/create">Create New Rental</Link>
       <ul>
         {rentals.map((rental) => (
           <li key={rental.rentalId}>
-            {rental.movieName} - Pick up: {rental.pickUpTime}
+            <Link to={`/rentals/${rental.rentalId}`}>
+              {rental.movieName} - {rental.customerName}
+            </Link>
           </li>
         ))}
       </ul>
     </div>
   );
-};
+}
 
 export default RentalList;
