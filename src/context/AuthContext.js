@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
 
   const login = (userData) => {
+    console.log("Setting user in AuthContext:", userData); // Debugging
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
   };

@@ -14,6 +14,7 @@ export const deleteMovie = (id) => API.delete(`/Movie/${id}`);
 // Rental APIs
 export const getRentals = async () => {
   const response = await API.get('/Rental');
+  console.log('Rentals API Response:', response.data); // Debugging
   return response.data;
 };
 

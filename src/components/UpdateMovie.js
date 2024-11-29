@@ -38,7 +38,7 @@ const UpdateMovie = () => {
         stock: movie.stock,
       };
       await updateMovie(movieId, updatedMovie);  // Call the updateMovie API function
-      navigate('/');  // Redirect to the movie list after successful update
+      navigate('/admin-dashboard');  
     } catch (err) {
       setError('Failed to update movie. Please try again.');
     }

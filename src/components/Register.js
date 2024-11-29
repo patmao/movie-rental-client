@@ -1,14 +1,14 @@
-// src/components/Register.js
 import React, { useState } from 'react';
-import { register } from '../api/api';  // Import the register API function
+import { register } from '../api/api';
 import { useNavigate } from 'react-router-dom';
+import './Register.css'; // Add this line to import the CSS
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // For navigation after successful registration
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -20,17 +20,16 @@ const Register = () => {
 
     try {
       const response = await register({ email, password });
-      // On successful registration, redirect the user to login page or dashboard
-      navigate('/auth');  // Redirect to login page after successful registration
+      navigate('/auth');
     } catch (err) {
       setError('Registration failed. Please try again.');
     }
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h2>Register</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p>{error}</p>}
       <form onSubmit={handleRegister}>
         <input
           type="email"

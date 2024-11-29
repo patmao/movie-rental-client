@@ -1,0 +1,85 @@
+/* Rental.css */
+.rental-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .rental-container h1,
+  .rental-container h2 {
+    color: #333;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .rental-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .rental-container input,
+  .rental-container button {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .rental-container input:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 4px rgba(76, 175, 80, 0.6);
+  }
+  
+  .rental-container button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .rental-container button:hover {
+    background-color: #45a049;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .rental-container .button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .rental-container .message {
+    font-size: 1rem;
+    color: #666;
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .loading-message {
+    font-size: 1.5rem;
+    color: #888;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .rental-details p {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 10px 0;
+  }
+  
+  .rental-details .button-group button {
+    flex: 1;
+    margin: 0 5px;
+  }
+  

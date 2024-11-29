@@ -1,0 +1,91 @@
+/* General container styling */
+.rental-list-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Title styling */
+  .rental-list-title {
+    font-size: 2rem;
+    text-align: center;
+    color: #343a40;
+    margin-bottom: 20px;
+  }
+  
+  /* Action button container */
+  .rental-actions {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  
+  /* Create rental button */
+  .create-rental-button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-rental-button:hover {
+    background-color: #218838;
+  }
+  
+  /* Rental list styling */
+  .rental-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Individual rental item */
+  .rental-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .rental-item:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Rental link */
+  .rental-link {
+    text-decoration: none;
+    color: #343a40;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .rental-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+  }
+  
+  /* Movie and customer name styling */
+  .rental-movie {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  
+  .rental-customer {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  

@@ -1,12 +1,12 @@
 // src/components/MovieList.js
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { fetchMovies, deleteMovie } from '../api/api';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { fetchMovies, deleteMovie } from "../api/api";
+import "./MovieList.css";
 
 const MovieList = ({ showAdminActions }) => {
   const [movies, setMovies] = useState([]);
 
-  // Fetch movies when component mounts
   useEffect(() => {
     const loadMovies = async () => {
       const { data } = await fetchMovies();
@@ -15,32 +15,36 @@ const MovieList = ({ showAdminActions }) => {
     loadMovies();
   }, []);
 
-  // Handle movie deletion
   const handleDelete = async (id) => {
     try {
-      await deleteMovie(id); // Call the deleteMovie API function
-      setMovies((prevMovies) => prevMovies.filter((movie) => movie.id !== id)); // Remove the deleted movie from the list
+      await deleteMovie(id);
+      setMovies((prevMovies) => prevMovies.filter((movie) => movie.id !== id));
     } catch (err) {
-      console.error('Failed to delete movie', err);
+      console.error("Failed to delete movie", err);
     }
   };
 
   return (
-    <div>
-      <h2>Available Movies</h2>
-      <ul>
+    <div className="movie-list">
+      <h2 className="movie-list-title">Available Movies</h2>
+      <ul className="movie-list-items">
         {movies.map((movie) => (
-          <li key={movie.id}>
-            <Link to={`/movie/${movie.id}`}>
+          <li className="movie-item" key={movie.id}>
+            <Link className="movie-link" to={`/movie/${movie.id}`}>
               {movie.movieName} - ${movie.rentalPrice}
             </Link>
             {showAdminActions && (
-              <>
-                {' | '}
-                <Link to={`/update-movie/${movie.id}`}>Update</Link>
-                {' | '}
-                <button onClick={() => handleDelete(movie.id)}>Delete</button>
-              </>
+              <div className="admin-actions">
+                <Link className="update-link" to={`/update-movie/${movie.id}`}>
+                  Update
+                </Link>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDelete(movie.id)}
+                >
+                  Delete
+                </button>
+              </div>
             )}
           </li>
         ))}

@@ -1,0 +1,77 @@
+/* UserDashboard.css */
+.user-dashboard {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 900px;
+  }
+  
+  .user-dashboard h1 {
+    color: #4CAF50;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+  }
+  
+  .movie-list,
+  .rental-list {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .movie-list h2,
+  .rental-list h2 {
+    color: #333;
+    font-size: 1.8rem;
+  }
+  
+  .movie-list ul,
+  .rental-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .movie-list li,
+  .rental-list li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .movie-list li:last-child,
+  .rental-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .movie-list li a,
+  .rental-list li a {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+  }
+  
+  .movie-list li a:hover {
+    text-decoration: underline;
+  }
+  
+  button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

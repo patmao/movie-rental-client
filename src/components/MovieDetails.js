@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchMovieById, rentMovie } from '../api/api';
+import { fetchMovieById } from '../api/api'; // Removed unused import rentMovie
+import { Link } from "react-router-dom";
+import './MovieDetails.css'; // Import the CSS file
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -9,25 +11,32 @@ const MovieDetails = () => {
   useEffect(() => {
     const loadMovie = async () => {
       const { data } = await fetchMovieById(id);
+      console.log("Fetched movie:", data); // Debug log
       setMovie(data);
     };
     loadMovie();
   }, [id]);
 
-  const handleRent = async () => {
-    await rentMovie(id, 1); // Rent 1 unit
-    alert('Movie rented successfully!');
-  };
-
   return movie ? (
-    <div>
+    <div className="movie-details-container">
       <h2>{movie.movieName}</h2>
       <p>Price: ${movie.rentalPrice}</p>
       <p>Stock: {movie.stock}</p>
-      <button onClick={handleRent}>Rent</button>
+      <Link
+        to={`/rentals/create`}
+        state={{ movieId: movie.id, movieTitle: movie.movieName }}
+        onClick={() =>
+          console.log("Navigating with state:", {
+            movieId: movie.movieId,
+            movieTitle: movie.movieName,
+          })
+        }
+      >
+        Want to Rent?
+      </Link>
     </div>
   ) : (
-    <p>Loading...</p>
+    <p className="loading-message">Loading...</p>
   );
 };
 
