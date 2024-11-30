@@ -1,10 +1,16 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { AuthContext } from "../context/AuthContext";
 import "./Header.css";
 
 const Header = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext); // Access user from context
+  const navigate = useNavigate(); // Initialize navigate
+
+  const handleLogout = () => {
+    logout();  // Call the logout function from AuthContext
+    navigate("/");  // Redirect to home page after logout
+  };
 
   return (
     <header className="header">
@@ -14,13 +20,13 @@ const Header = () => {
           <Link className="nav-link" to="/">
             Home
           </Link>
-          {user && (
+          {user && user.email && ( // Check if the user is logged in by verifying email
             <Link className="nav-link" to="/rentals">
-              {user.isAdmin ? "Rent OUT" : "My Rentals"}
+              {user.isAdmin ? "Rental List" : "My Rentals"}
             </Link>
           )}
-          {user ? (
-            <button className="nav-button" onClick={logout}>
+          {user && user.email ? (
+            <button className="nav-button" onClick={handleLogout}> {/* Call handleLogout */}
               Logout
             </button>
           ) : (

@@ -1,19 +1,34 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState();
+  // Initialize state with default values
+  const [user, setUser] = useState({
+    email: '',
+    isAdmin: false,
+    rentals: []
+  });
+
+  useEffect(() => {
+    // If there's a user in localStorage, set it to the state
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const login = (userData) => {
     console.log("Setting user in AuthContext:", userData); // Debugging
-    localStorage.setItem("user", JSON.stringify(userData));
-    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData)); // Save user to localStorage
+    setUser(userData); // Set user in state
   };
 
   const logout = () => {
+    console.log("Logging out..."); // Log to confirm logout
     localStorage.removeItem("user");
-    setUser(null);
+    setUser({ email: '', isAdmin: false, rentals: [] }); // Reset state on logout
+    
   };
 
   return (
@@ -21,13 +36,4 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
-
-// Custom hook for accessing the AuthContext
-export const useAuthContext = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuthContext must be used within an AuthProvider");
-  }
-  return context;
 };

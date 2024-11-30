@@ -14,10 +14,17 @@ const UserAuth = () => {
   const handleLogin = async () => {
     try {
       const { data } = await login({ email, password });
-      const isAdmin = data.IsAdmin.bool;
-      const userEmail = data.Email.S;
-      const userRentals = data.Rentals.L;
-
+      
+      // Log the response to check its structure
+      console.log("Login Response Data:", data);
+    
+      // Use optional chaining and provide fallback values
+      const isAdmin = data.isAdmin || false;  // Ensure proper boolean
+      const userEmail = data.email || '';     // Ensure proper string
+      const userRentals = data.rentals || []; // Ensure proper array
+    
+      console.log("Processed Login Data:", { isAdmin, userEmail, userRentals });
+  
       if (isAdmin) {
         alert('Welcome Admin');
         navigate('/admin-dashboard');
@@ -25,7 +32,8 @@ const UserAuth = () => {
         alert('Welcome User');
         navigate('/user-dashboard');
       }
-
+    
+      // Update AuthContext
       contextLogin({ email: userEmail, isAdmin, rentals: userRentals });
     } catch (err) {
       console.error('Login failed:', err);

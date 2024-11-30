@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { addMovie } from '../api/api';
+import './AddMovie.css'; // Import the CSS file
 
 const AddMovie = () => {
   const [movieName, setMovieName] = useState('');
@@ -12,27 +13,44 @@ const AddMovie = () => {
   };
 
   return (
-    <div>
-      <h2>Add New Movie</h2>
-      <input
-        type="text"
-        placeholder="Movie Name"
-        value={movieName}
-        onChange={(e) => setMovieName(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Rental Price"
-        value={rentalPrice}
-        onChange={(e) => setRentalPrice(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Stock"
-        value={stock}
-        onChange={(e) => setStock(e.target.value)}
-      />
-      <button onClick={handleAdd}>Add Movie</button>
+    <div className="add-movie-container">
+      <div className="form-container">
+        <h2 className="form-title">Add New Movie</h2>
+        <div className="form-group">
+          <label htmlFor="movieName">Movie Name</label>
+          <input
+            id="movieName"
+            type="text"
+            placeholder="Enter movie name"
+            value={movieName}
+            onChange={(e) => setMovieName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="rentalPrice">Rental Price</label>
+          <input
+            id="rentalPrice"
+            type="number"
+            placeholder="Enter rental price"
+            value={rentalPrice}
+            onChange={(e) => setRentalPrice(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="stock">Stock</label>
+          <input
+            id="stock"
+            type="number"
+            placeholder="Enter stock quantity"
+            value={stock}
+            onChange={(e) => setStock(e.target.value)}
+            required
+          />
+        </div>
+        <button className="add-movie-button" onClick={handleAdd}>Add Movie</button>
+      </div>
     </div>
   );
 };

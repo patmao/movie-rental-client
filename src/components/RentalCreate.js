@@ -21,7 +21,14 @@ function RentalCreate() {
             setMessage("Please fill out all fields.");
             return;
         }
-        const rentalDto = { MovieName: movieTitle, userEmail, CustomerID: customerId, CustomerName: customerName, amount, pickupTime };
+        const rentalDto = { 
+            MovieName: movieTitle, 
+            userEmail, 
+            CustomerID: customerId, 
+            CustomerName: customerName, 
+            amount, 
+            pickupTime 
+        };
         try {
             await createRental(movieId, userEmail, rentalDto);
             setMessage("Rental created successfully!");
@@ -35,13 +42,57 @@ function RentalCreate() {
         <div className="rental-container">
             <h2>Add Rental</h2>
             <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Movie ID" value={movieId} onChange={(e) => setMovieId(e.target.value)} required readOnly={!!state?.movieId} />
-                <input type="email" placeholder="User Email" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} required />
-                <input type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required />
-                <input type="datetime-local" placeholder="Pickup Time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)} required />
-                <input type="text" placeholder="Movie Title" value={movieTitle} onChange={(e) => setMovieTitle(e.target.value)} required readOnly={!!state?.movieTitle} />
-                <input type="text" placeholder="Customer Name" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
-                <input type="text" placeholder="Customer ID" value={customerId} onChange={(e) => setCustomerId(e.target.value)} required />
+                <input 
+                    type="text" 
+                    placeholder="Movie ID" 
+                    value={movieId} 
+                    onChange={(e) => setMovieId(e.target.value)} 
+                    required 
+                    readOnly={!!state?.movieId} 
+                />
+                <input 
+                    type="email" 
+                    placeholder="User Email" 
+                    value={userEmail} 
+                    onChange={(e) => setUserEmail(e.target.value)} 
+                    required 
+                />
+                <input 
+                    type="number" 
+                    placeholder="Amount" 
+                    value={amount} 
+                    onChange={(e) => setAmount(e.target.value)} 
+                    required 
+                />
+                <input 
+                    type="datetime-local" 
+                    placeholder="Pickup Time" 
+                    value={pickupTime} 
+                    onChange={(e) => setPickupTime(e.target.value)} 
+                    required 
+                />
+                <input 
+                    type="text" 
+                    placeholder="Movie Title" 
+                    value={movieTitle} 
+                    onChange={(e) => setMovieTitle(e.target.value)} 
+                    required 
+                    readOnly={!!state?.movieTitle} 
+                />
+                <input 
+                    type="text" 
+                    placeholder="Customer Name" 
+                    value={customerName} 
+                    onChange={(e) => setCustomerName(e.target.value)} 
+                    required 
+                />
+                <input 
+                    type="text" 
+                    placeholder="Customer ID" 
+                    value={customerId} 
+                    onChange={(e) => setCustomerId(e.target.value)} 
+                    required 
+                />
                 <button type="submit">Add Rental</button>
             </form>
             {message && <p className="message">{message}</p>}
