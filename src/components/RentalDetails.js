@@ -11,6 +11,7 @@ function RentalDetails() {
     useEffect(() => {
         const fetchRental = async () => {
             const data = await getRentalById(id);
+            console.log("Fetched Rental Data:", data); // Add this log
             setRental(data);
         };
         fetchRental();
@@ -18,8 +19,14 @@ function RentalDetails() {
 
     const handleDelete = async () => {
         if (window.confirm("Are you sure you want to delete this rental?")) {
-            await deleteRental(rental.rentalId, rental.customerEmail);
-            navigate("/rentals");
+            console.log("Deleting rental with ID:", rental.rentalId, "and Email:", rental.customerEmail);
+            try {
+                await deleteRental(rental.rentalId, rental.customerEmail);
+                navigate("/rentals");
+              } catch (error) {
+                console.error("Delete Rental Error:", error.response?.data || error.message);
+                alert("Failed to delete the rental. Please try again.");
+              }
         }
     };
 

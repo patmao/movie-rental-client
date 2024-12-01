@@ -1,42 +1,53 @@
 import React, { useState } from "react";
 import { createRental } from "../api/api";
 import { useNavigate, useLocation } from "react-router-dom";
-import './Rental.css'; // Import the CSS file
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import './Rental.css';
 
 function RentalCreate() {
-    const location = useLocation();
-    const { state } = location;
-    const [movieId, setMovieId] = useState(state?.movieId || "");
-    const [userEmail, setUserEmail] = useState("");
-    const [amount, setAmount] = useState("");
-    const [pickupTime, setPickupTime] = useState("");
-    const [movieTitle, setMovieTitle] = useState(state?.movieTitle || "");
-    const [customerName, setCustomerName] = useState("");
-    const [customerId, setCustomerId] = useState("");
-    const [message, setMessage] = useState("");
+  const location = useLocation();
+  const { state } = location;
+  const [movieId, setMovieId] = useState(state?.movieId || "");
+  const [userEmail, setUserEmail] = useState("");
+  const [amount, setAmount] = useState("");
+  const [pickupTime, setPickupTime] = useState("");
+  const [movieTitle, setMovieTitle] = useState(state?.movieTitle || "");
+  const [customerName, setCustomerName] = useState("");
+  const [customerId, setCustomerId] = useState("");
+  const [message, setMessage] = useState("");
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!movieTitle || !customerId || !customerName) {
-            setMessage("Please fill out all fields.");
-            return;
-        }
-        const rentalDto = { 
-            MovieName: movieTitle, 
-            userEmail, 
-            CustomerID: customerId, 
-            CustomerName: customerName, 
-            amount, 
-            pickupTime 
-        };
-        try {
-            await createRental(movieId, userEmail, rentalDto);
-            setMessage("Rental created successfully!");
-        } catch (error) {
-            setMessage("Error creating rental.");
-            console.error(error);
-        }
+  const { user, setRentals } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!movieTitle || !customerId || !customerName) {
+      setMessage("Please fill out all fields.");
+      return;
+    }
+    const rentalDto = { 
+      MovieName: movieTitle, 
+      userEmail, 
+      CustomerID: customerId, 
+      CustomerName: customerName, 
+      amount, 
+      pickupTime 
     };
+    try {
+      await createRental(movieId, userEmail, rentalDto);
+      setMessage("Rental created successfully!");
+
+      // Update rentals in AuthContext immediately
+      const updatedRentals = [...user.rentals, { movieName: movieTitle, customerName }];
+      setRentals(updatedRentals); // This updates the rentals in the context
+
+      navigate("/rentals"); // Redirect to the rentals list
+    } catch (error) {
+      setMessage("Error creating rental.");
+      console.error(error);
+    }
+  };
 
     return (
         <div className="rental-container">

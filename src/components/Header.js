@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "./Header.css";
 
@@ -8,8 +8,8 @@ const Header = () => {
   const navigate = useNavigate(); // Initialize navigate
 
   const handleLogout = () => {
-    logout();  // Call the logout function from AuthContext
-    navigate("/");  // Redirect to home page after logout
+    logout(); // Call the logout function from AuthContext
+    navigate("/"); // Redirect to home page after logout
   };
 
   return (
@@ -21,15 +21,21 @@ const Header = () => {
             Home
           </Link>
           {user && user.email && ( // Check if the user is logged in by verifying email
-            <Link className="nav-link" to="/rentals">
-              {user.isAdmin ? "Rental List" : "My Rentals"}
-            </Link>
+            <>
+              {user.isAdmin && ( // Show Admin Dashboard link only for admins
+                <Link className="nav-link" to="/admin-dashboard">
+                  Admin Dashboard
+                </Link>
+              )}
+              <Link className="nav-link" to="/rentals">
+                {user.isAdmin ? "Rental List" : "My Rentals"}
+              </Link>
+              <button className="nav-button" onClick={handleLogout}>
+                Logout
+              </button>
+            </>
           )}
-          {user && user.email ? (
-            <button className="nav-button" onClick={handleLogout}> {/* Call handleLogout */}
-              Logout
-            </button>
-          ) : (
+          {!user.email && (
             <>
               <Link className="nav-link" to="/auth">
                 Login

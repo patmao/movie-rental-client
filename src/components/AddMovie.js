@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { addMovie } from '../api/api';
 import './AddMovie.css'; // Import the CSS file
+import { useNavigate } from "react-router-dom";
 
 const AddMovie = () => {
   const [movieName, setMovieName] = useState('');
   const [rentalPrice, setRentalPrice] = useState('');
   const [stock, setStock] = useState('');
+  const navigate = useNavigate();
 
   const handleAdd = async () => {
     await addMovie({ movieName, rentalPrice, stock });
     alert('Movie added successfully!');
+    navigate("/")
   };
 
   return (
