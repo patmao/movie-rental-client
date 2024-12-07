@@ -17,38 +17,28 @@ function RentalCreate() {
   const [customerId, setCustomerId] = useState("");
   const [message, setMessage] = useState("");
 
-  const { user, setRentals } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!movieTitle || !customerId || !customerName) {
-      setMessage("Please fill out all fields.");
-      return;
-    }
-    const rentalDto = { 
-      MovieName: movieTitle, 
-      userEmail, 
-      CustomerID: customerId, 
-      CustomerName: customerName, 
-      amount, 
-      pickupTime 
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (!movieTitle || !customerId || !customerName) {
+          setMessage("Please fill out all fields.");
+          return;
+      }
+      const rentalDto = { 
+          MovieName: movieTitle, 
+          userEmail, 
+          CustomerID: customerId, 
+          CustomerName: customerName, 
+          amount, 
+          pickupTime 
+      };
+      try {
+          await createRental(movieId, userEmail, rentalDto);
+          setMessage("Rental created successfully!");
+      } catch (error) {
+          setMessage("Error creating rental.");
+          console.error(error);
+      }
     };
-    try {
-      await createRental(movieId, userEmail, rentalDto);
-      setMessage("Rental created successfully!");
-
-      // Update rentals in AuthContext immediately
-      const updatedRentals = [...user.rentals, { movieName: movieTitle, customerName }];
-      setRentals(updatedRentals); // This updates the rentals in the context
-
-      navigate("/rentals"); // Redirect to the rentals list
-    } catch (error) {
-      setMessage("Error creating rental.");
-      console.error(error);
-    }
-  };
-
     return (
         <div className="rental-container">
             <h2>Add Rental</h2>
